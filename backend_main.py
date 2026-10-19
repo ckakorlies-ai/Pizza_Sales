@@ -105,7 +105,7 @@ def fallback_sql_for_question(question: str) -> str:
     if "total orders" in q or "orders" in q and "total" in q:
         return "SELECT COUNT(DISTINCT order_id) AS total_orders FROM pizza_sales"
 
-    if "pizzas sold" in q or "total pizzas" in q or "quantity sold" in q:
+    if re.search(r"\bpizzas\s+(?:were\s+)?sold\b", q) or "total pizzas" in q or "quantity sold" in q:
         return "SELECT COALESCE(SUM(quantity), 0) AS total_pizzas_sold FROM pizza_sales"
 
     if "average order value" in q or "aov" in q:

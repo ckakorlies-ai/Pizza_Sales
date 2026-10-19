@@ -59,6 +59,10 @@ def test_fallback_sql_questions_use_expected_aliases():
         assert backend_main.validate_sql(sql) is True
         assert all(alias in sql.lower() for alias in aliases)
 
+    assert "SUM(quantity)" in backend_main.fallback_sql_for_question(
+        "How many pizzas were sold in total?"
+    )
+
 
 def test_execute_sql_against_sqlite_sample_data(monkeypatch):
     conn = setup_test_db()
